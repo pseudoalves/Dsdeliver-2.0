@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import './styles.css';
 import StepsHeader from './StepsHeader';
 import ProductsList from './ProductsList';
@@ -44,8 +45,8 @@ function Orders() {
         products: productsIds
       }
     
-      saveOrder(payload).then(() => {
-        toast.error('Pedido enviado com sucesso!');
+      saveOrder(payload).then((response) => {
+        toast.error(`Pedido enviado com sucesso! Nº ${response.data.id}`);
         setSelectedProducts([]);
       })
         .catch(() => {
@@ -66,7 +67,7 @@ function Orders() {
           <OrderSummary 
           amount={selectedProducts.length} 
           totalPrice={totalPrice} 
-          onSumit={handleSubmit}
+          onSubmit={handleSubmit}
           />
           <Footer />
       </div>
